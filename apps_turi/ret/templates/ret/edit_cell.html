@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="position-relative">
+
+  <div class="position-absolute top-0 start-50 translate-middle-x">
+      <a href="{% url 'edit_ret' %}" type="button" class="btn btn-warning">Reset</a>
+  </div>
+
+  {% if visualizza  %}
+    <div class="position-absolute top-0 end-0">
+      <a href="{% url 'load_swapmatrix2' %}" type="button" class="btn btn-primary">Next</a>  
+    </div>
+  {% endif %}  
+
+</div><br/>
+
+<div class="row justify-content-center mt-4">
+  <div class="col-8">
+      <h2>Edit Cell</h2>
+    
+        <form method="post">
+            
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <div class="table-container"> 
+                
+                    <table class="table table-sm table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th> </th>
+                                <th>MST</th>
+                                <th>BB</th>
+                                <th>CELL</th>
+                                <th>SEQ</th>
+                                <th>RADIO</th>
+                                <th>USER</th>
+                                <th>DEL</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody >
+                        {% for form in formset %}
+                            <tr>
+                                <td>{{ form.id }}</td>  {# Aggiungi il campo "id" come campo nascosto #}
+                                <td>{{ form.master }}</td>
+                                <td>{{ form.bb }}</td>
+                                <td>{{ form.cell }}</td>
+                                <td>{{ form.seq }}</td>
+                                <td>{{ form.radio }}</td>
+                                <td>{{ form.utente }}</td>
+                                <td>{{ form.DELETE }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+ 
+                    <button type="submit">Update</button>
+
+            </div>
+            
+        </form>
+
+
+     
+  </div> 
+</div>       
+
+{% endblock %}

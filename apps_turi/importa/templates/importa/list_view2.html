@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - ADPR{% endblock head_title %}
+
+{% block content %}
+
+<div class="position-relative">
+
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+        
+        <!-- Button trigger modal -->
+
+        {% if visualizza  %}
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+            Import ADPR
+        </button>
+        {% endif %} 
+        
+
+
+        {% if visualizzaelimina  %}
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Elimina tutto
+        </button> 
+        {% endif %}   
+        
+        
+    </div>
+    <div class="position-absolute top-0 end-0">
+        <a href="{% url 'scan_view2' %}" type="button" class="btn btn-primary">Next</a>  
+    </div>
+</div><br/>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+    
+        <form method="POST">
+            <!-- Security token by Django -->
+            {% csrf_token %}
+            Sei sicuro di voler eliminare tutto ?
+            </br>
+            <a href="/importa/deleteall/" class="btn btn-danger">Si</a>
+            <a href="/importa/list-view2/" class="btn btn-success">No</a>
+        </form>
+
+    </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Import degli ADPR</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <form class="" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="file" class="form-control" name="lte">
+                <input type="file" class="form-control" name="gsm"><br>
+                <button type="submit" class="btn btn-info">Upload</button>
+            </form>
+
+        </div>
+
+      </div>
+    </div>
+</div>
+
+
+<div class="row justify-content-center mt-4">
+    <div class="col-10">
+        <h2>ADPR Imported</h2>
+
+        <form method="POST">
+            
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <div class="table-container text-center"> 
+                
+                    <table class="table table-sm table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th> </th>
+                                <th >CELLA</th> 
+                            	<th >BB</th>
+                            	<th >SEQ</th>
+                            	<th >RUSREF</th>                            
+                            	<th >RUTYPE</th>
+                            	<th >LAYER</th>
+                            	<th >MXMOD</th>
+                            	<th >MIMO</th>
+                            	<th >TMA</th>
+                            	<th >RET</th>
+                            	<th >TILT</th>
+                                <th >USER</th>
+                            	<th >ELIMINA</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody >
+                        {% for form in formset %}
+                            <tr>
+                                <td>{{ form.id }}</td>  {# Aggiungi il campo "id" come campo nascosto #}
+                                <td>{{ form.cella }}</td>
+                                <td>{{ form.bb }}</td>
+                                <td>{{ form.seq }}</td>
+                                <td>{{ form.rusref }}</td>
+                                <td>{{ form.rutype }}</td>
+                                <td>{{ form.layer }}</td>
+                                <td>{{ form.mxmod }}</td>
+                                <td>{{ form.mimo }}</td>
+                                <td>{{ form.tma }}</td>
+                                <td>{{ form.ret }}</td>
+                                <td>{{ form.tilt }}</td>
+                                <td>{{ form.utente }}</td>
+                                <td>{{ form.DELETE }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+ 
+                    <button type="submit">Update</button>
+
+            </div>
+            
+        </form>
+
+
+        <br/>    
+
+    </div>
+</div>
+
+
+
+{% endblock content %}

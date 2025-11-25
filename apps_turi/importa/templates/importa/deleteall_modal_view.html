@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block adpr %}
+<!-- Button trigger modal -->
+
+<div class="position-relative">
+
+    <div class="position-absolute top-50 start-50 translate-middle-x">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Delete
+        </button>
+    </div>
+  
+  </div><br/>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+                Sei sicuro di voler eliminare tutto ?
+                </br>
+                <input type="submit" class="btn btn-danger" value="Yes" />
+                <a href="/importa" class="btn btn-success">No</a>
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock adpr%}

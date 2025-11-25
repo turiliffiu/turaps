@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% load render_table from django_tables2 %}
+
+{% block head_title %}{{ block.super }} - SCAN{% endblock head_title %}
+
+{% block content %}
+
+<div class="position-relative">
+    <div class="position-absolute top-0 start-0">
+        <a href="{% url 'lista_template' %}" type="button" class="btn btn-primary">Prev</a>               
+    </div>
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+        <a href="#" type="button" class="btn btn-success">Aggiungi Elemento</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Elimina tutto
+        </button>      
+    </div>
+
+</div><br/>
+  
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+                Sei sicuro di voler eliminare tutto ?
+                </br>
+                <a href="#" class="btn btn-danger">Si</a>
+                <a href="#" class="btn btn-success">No</a>
+            </form>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-12">
+        <h1>Template {{ template.cod }}</h1>
+
+            <p>{{ template.tmpl|linebreaks }}</p>
+
+        <br/>    
+    </div>
+</div>
+
+{% endblock content %}

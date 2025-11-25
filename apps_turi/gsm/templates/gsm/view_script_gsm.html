@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - GSM script{% endblock head_title %}
+
+{% block content %}
+
+<div class="position-relative">
+
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+        <a href="{% url 'modifica_script_gsm' %}" type="button" class="btn btn-success">Modifica</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Esporta files
+        </button>      
+    </div>
+
+</div><br/>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Export</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+    
+        <form method="POST">
+            <!-- Security token by Django -->
+            {% csrf_token %}
+            Scarica:
+            </br>
+            <a href="/gsm/export-script-gsm/" class="btn btn-success">{{ sito }}_gsm.txt</a>
+
+        </form>
+
+    </div>
+</div>
+</div>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-10">
+        <h2>Comandi per la configurazione del sito {{ sito }} sul BSC {{ bsc }} </h2>
+
+          
+        <p>{{ script|linebreaks }}</p>
+
+
+        <br/>    
+
+    </div>
+</div>
+
+
+
+{% endblock content %}

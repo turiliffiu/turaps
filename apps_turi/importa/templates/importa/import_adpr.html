@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - Import ADPR{% endblock head_title %}
+
+{% block content1 %}
+{% if request.user.is_authenticated %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Applicazioni
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{% url 'importa_adpr' %}">Importa Dati</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'list_view' %}">Crea TMA</a></li>
+                <li><a class="dropdown-item" href="#">Crea RET</a></li>
+                <li><a class="dropdown-item" href="#">Crea GSM</a></li>
+            </ul>
+        </li>          
+{% endif %}
+{% endblock content1 %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-6">
+        <h2>Import degli ADPR</h2>
+        <form class="" method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="file" name="lte"><br>
+            <input type="file" name="gsm"><br>
+            <button type="submit" class="btn btn-info">Upload</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

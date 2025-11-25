@@ -1,0 +1,10 @@
+<div class="main">
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        Sei sicuro di voler eliminare tutto ?
+        <input type="submit" value="Yes" />
+        <a href="/prove">Cancel </a>
+    </form>
+</div>

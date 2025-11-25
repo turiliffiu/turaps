@@ -1,0 +1,25 @@
+
+<form method="post">
+    {% csrf_token %}
+    <table>
+        <thead>
+            <tr>
+                <th>Input</th>
+                <th>Output</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for form in sample_form %}
+            <tr>
+                <th>
+                    {{ form.x }}
+                </th>
+                <th>
+                    {{ form.y }}
+                </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <input type="submit" value="Update">
+</form>

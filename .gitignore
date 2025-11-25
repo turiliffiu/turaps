@@ -30,3 +30,18 @@ django_env
 # OS
 .DS_Store
 Thumbs.db
+
+# File di sistema Linux
+.bash_history
+.bash_logout
+.bashrc
+.profile
+.cache/
+.sudo_as_admin_successful
+
+# Directory statiche e media
+media-serve/
+static-serve/
+
+# Script di configurazione
+gunicorn_start.bash

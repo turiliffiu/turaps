@@ -1,0 +1,64 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+        path('associatma/', 
+            views.associaTma,
+            name="associatma"  
+        ),        
+        path("tma-view/", 
+            views.tma_view, 
+            name="tma_view"
+        ),
+        path("tma-view2/", 
+            views.tma_view2, 
+            name="tma_view2"
+        ),
+        path('<id>/update-tma/', 
+            views.update_tma,
+            name="update_tma" 
+        ),
+        path('<id>/delete-tma/', 
+            views.delete_tma,
+            name="delete_tma"  
+        ),
+        path('deleteall-tma/', 
+            views.deleteall_tma,
+            name="deleteall_tma"  
+        ),  
+        path("create-tma/", 
+            views.create_tma, 
+            name="create_tma"
+        ),
+        path("export-script1/", 
+            views.export_script1, 
+            name="export_script1"
+        ), 
+        path("export-script2/", 
+            views.export_script2, 
+            name="export_script2"
+        ),
+        path('modifica-script/', 
+            views.modifica_script,
+            name="modifica_script" 
+        ), 
+        path("primaassocia-tma/", 
+            views.primaassocia_tma, 
+            name="primaassocia_tma"
+        ),
+        path("crea-script/", 
+            views.crea_script, 
+            name="crea_script"
+        ),        
+        path("view-script/", 
+            views.view_script, 
+            name="view_script"
+        ),
+        path("ret-view/", 
+            views.ret_view, 
+            name="ret_view"
+        ),  
+        path('delete-tmas/', 
+            views.delete_tmas, 
+            name='delete_tmas'),                                                                                                 
+]

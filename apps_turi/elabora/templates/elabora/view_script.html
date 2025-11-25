@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - TMA script{% endblock head_title %}
+
+{% block content %}
+
+<div class="position-relative">
+    <div class="position-absolute top-0 start-0">
+        <a href="{% url 'tma_view' %}" type="button" class="btn btn-primary">Prev</a>               
+    </div>
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+        <a href="{% url 'modifica_script' %}" type="button" class="btn btn-success">Modifica</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Esporta files
+        </button>      
+    </div>
+
+</div><br/>
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Export</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+    
+        <form method="POST">
+            <!-- Security token by Django -->
+            {% csrf_token %}
+            Scarica:
+            </br>
+            <a href="/elabora/export-script1/" class="btn btn-success">{{ bb1 }}_tma.mos</a>
+            {% if bb2 %}
+            <a href="/elabora/export-script2/" class="btn btn-success">{{ bb2 }}_tma.mos</a>
+            {% endif %}
+        </form>
+
+    </div>
+</div>
+</div>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-10">
+        <h2>Scripts per la configurazione dei TMA del sito {{ sito }}</h2>
+
+        <h4>Caricare nel nodo {{ bb1 }}</h4>    
+        <p>{{ script1|linebreaks }}</p>
+        {% if bb2 %}
+        <h4>Caricare nel nodo {{ bb2 }}</h4> 
+        <p>{{ script2|linebreaks }}</p>
+        {% endif %}
+
+        <br/>    
+
+    </div>
+</div>
+
+
+
+{% endblock content %}

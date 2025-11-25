@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - TMA{% endblock head_title %}
+
+{% block content %}
+
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        Sei sicuro di voler eliminare questo elemento ?
+        <input type="submit" value="Yes" />
+        <a href="/elabora/tma-view/">Cancel </a>
+    </form>
+
+{% endblock content %}

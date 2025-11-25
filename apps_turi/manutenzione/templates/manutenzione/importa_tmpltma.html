@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- Button trigger modal -->
+
+<div class="position-relative">
+  <div class="position-absolute top-0 start-0">
+      <a href="/" type="button" class="btn btn-primary">Home</a>               
+  </div>
+  <div class="position-absolute top-0 start-50 translate-middle-x">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Importa File template TMA
+      </button>
+  </div>
+  <div class="position-absolute top-0 end-0">
+      <a href="{% url 'lista_template' %}" type="button" class="btn btn-primary">Next</a><br/>
+  </div>
+</div><br/>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Importa file template TMA</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <form class="" method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="file" name="tmpltma"><br>
+                <button type="submit" class="btn btn-info">Upload</button>
+            </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock content%}

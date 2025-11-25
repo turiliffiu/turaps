@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - SCAN{% endblock head_title %}
+
+{% block content %}
+
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        
+        <!-- form as paragraph -->
+        {{ form.as_p }}
+            
+        <input type="submit" value="Update">
+        
+    </form>
+ 
+{% endblock content %}

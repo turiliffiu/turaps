@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="position-relative">
+  <div class="position-absolute top-0 start-0">
+      <a href="/" type="button" class="btn btn-primary">Home</a>               
+  </div>
+  <div class="position-absolute top-0 start-50 translate-middle-x">
+      <a href="{% url 'edit_ret' %}" type="button" class="btn btn-success">Associa</a>
+      <a href="{% url 'edit_cell' %}" type="button" class="btn btn-warning">Modifica Celle</a>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Elimina tutto
+      </button>      
+  </div>
+  <div class="position-absolute top-0 end-0">
+      <a href="#" type="button" class="btn btn-primary">Next</a>  
+  </div>
+</div><br/>
+
+<!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+          <form method="POST">
+              <!-- Security token by Django -->
+              {% csrf_token %}
+              Sei sicuro di voler eliminare tutto ?
+              </br>
+              <a href="{% url 'delete_allret' %}" class="btn btn-danger">Si</a>
+              <a href="{% url 'view_ret' %}" class="btn btn-success">No</a>
+          </form>
+
+      </div>
+  </div>
+  </div>
+
+</div>
+
+<div class="row justify-content-center mt-4">
+  <div class="col-122">
+      <h2>Edit RET</h2>
+      <div class="container text-center">
+        <form method="post">
+          {% csrf_token %}
+          {{ formset.management_form }}
+          <style>
+            li {
+              list-style: none;
+
+            }
+          </style>
+          
+          <div class="container text-center"> 
+
+
+            <div class="row">
+
+              <ul>
+                <li>
+                  <div style="display: inline-block; margin-left: 25px; margin-right: 20px;">BB</div>
+                  <div style="display: inline-block; margin-right: 10px;">RADIO</div>
+                  <div style="display: inline-block; margin-right: 80px;">PORT</div>
+                  <div style="display: inline-block; margin-right: 90px;">SERIAL</div>
+                  <div style="display: inline-block; margin-right: 30px;">CELL</div>
+                  <div style="display: inline-block; margin-right: 25px;">SEQ</div>   
+                  <div style="display: inline-block; margin-right: 15px;">TILT</div>
+                  <div style="display: inline-block; margin-right: 5px;">USER</div>
+                  <div style="display: inline-block; margin-right: 0px;">DEL</div> 
+                </li>
+                  {% for form in formset %}              
+                  <li>{{ form }}</li>            
+                  {% endfor %}
+              </ul>
+              
+              
+            </div>
+          </div>  
+          <input type="submit" value="Update">
+        </form>
+      </div>
+    </div> 
+  </div>       
+
+{% endblock %}

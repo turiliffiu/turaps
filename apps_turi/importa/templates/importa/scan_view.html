@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - SCAN{% endblock head_title %}
+
+{% block content %}
+
+<div class="position-relative">
+    <div class="position-absolute top-0 start-0">
+        <a href="{% url 'importa_scan' %}" type="button" class="btn btn-primary">Prev</a>               
+    </div>
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+        <a href="{% url 'create_scan_view' %}" type="button" class="btn btn-success">Aggiungi Elemento</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Elimina tutto
+        </button>      
+    </div>
+
+</div><br/>
+  
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+                Sei sicuro di voler eliminare tutto ?
+                </br>
+                <a href="/importa/deleteallscan/" class="btn btn-danger">Si</a>
+                <a href="/importa/scan-view/" class="btn btn-success">No</a>
+            </form>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-12">
+        <h2>SCAN Imported</h2>
+
+            <div class="table-container">
+    
+                <table class="table table-striped">
+                                
+                    <thead >
+                        <tr>                                                       
+                        
+                            <th >BB</th> 
+                            <th >RADIO</th>
+                            <th >SEQ</th>
+                            <th >PORT</th>
+                            <th >TYPE</th>
+                            <th >UNIQUE_ID</th>
+                            <th >PRODUCT_NUMBER</th>
+                            <th >FREQ_TMA1</th> 
+                            <th >NOTE</th>                           
+
+                        </tr>
+                    </thead>
+                                            
+                    <tbody >
+                                                            
+                    {% for data in dataset %}
+                
+                    <tr>            
+                        <td class="field-cella"><a href="{% url 'update_scan' id=data.id %}">{{ data.bb }}</a></td>                      
+                        <td >{{ data.radio }}</td>            
+                        <td >{{ data.seq }}</td>            
+                        <td >{{ data.port }}</td>            
+                        <td >{{ data.type }}</td>            
+                        <td >{{ data.unique_id }}</td>            
+                        <td >{{ data.product_number }}</td>
+                        <td >{{ data.freq1tma }}</td>            
+                        <td ><a href="{% url 'deletescan' id=data.id %}">Elimina</a></td>            
+                    </tr>       	    
+                                        
+                    {% endfor %}                
+                                                
+                    </tbody>
+                            
+                </table>
+            
+            </div>
+
+
+        <br/>    
+
+
+
+    </div>
+</div>
+
+{% endblock content %}

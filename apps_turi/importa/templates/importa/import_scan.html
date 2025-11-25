@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - Import SCAN{% endblock head_title %}
+
+
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-6">
+        <h2>Import degli SCAN</h2>
+        <form class="" method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="file" name="scan1"><br>
+            <input type="file" name="scan2"><br>
+            <button type="submit" class="btn btn-info">Upload</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

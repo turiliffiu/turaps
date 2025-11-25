@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="POST" action="{% url 'ret_view' %}">
+
+    {% csrf_token %}
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-122">
+        <h2>RET</h2>
+          <div class="table-container">
+            <table class="table table-striped">                              
+
+              <thead >
+                <tr>
+                <th><button type="submit">Elimina</button></th>   
+                <th>BB</th>
+                <th>RADIO</th>
+                <th>PORT</th>
+                <th>UNIQUE_ID</th> 
+                <th>CELLA</th>  
+                <th>TILT</th>                                        
+                </tr>
+              </thead>
+                                      
+              <tbody >                                                      
+              {% for ret in ret_list %}          
+                <tr>
+                  <td><input type="checkbox" name="object_id" value="{{ ret.id }}"></td>
+                  <td>{{ ret.bb }}</td>
+                  <td>{{ ret.radio }}</td>
+                  <td>{{ ret.port }}</td>
+                  <td>{{ ret.unique_id }}</td> 
+                  <td></td> 
+                  <td></td>                           
+                </tr>       	                                      
+              {% endfor %}                                                          
+              </tbody>                          
+            
+            </table>          
+          </div>
+        <br/>    
+    </div>
+  </div>
+</form>
+
+
+
+
+{% endblock %}

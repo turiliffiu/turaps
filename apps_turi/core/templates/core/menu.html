@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <!-- Menu ad oggetti al centro -->
+  <div class="container mt-5">
+    <ul class="object-menu">
+      <li><a href="{% url 'list_view2' %}" type="button" class="btn btn-success text-white">Gestione Dati</a></li>
+      
+
+    </ul>
+  </div>
+  <div class="container mt-5">
+    <ul class="object-menu">     
+      <li><a href="{% url 'edit_ret' %}"">Crea RET</a></li>
+      <li><a href="{% url 'associatma' %}">Crea TMA</a></li>
+      <li><a href="{% url 'crea_script_gsm' %}">Crea GSM</a></li>
+    </ul>
+  </div>
+
+{% endblock content %}
+

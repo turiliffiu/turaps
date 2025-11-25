@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+
+<div class="position-relative">
+
+
+
+</div><br/>
+
+
+<div class="row justify-content-center mt-4">
+  <div class="col-122">
+      <h2>Insert Serial</h2>
+      <div class="container text-center">
+
+        <form method="post">
+            
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <div class="table-container"> 
+                
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr>
+                                <th> </th>
+                                <th>BB</th>
+                                <th>SETT</th>
+                                <th>BANDA</th>
+                                <th>TILT</th>
+                                <th>SERIAL</th>
+                                <th>PORT</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody >
+                        {% for form in formset %}
+                            <tr>
+                                <td>{{ form.id }}</td>  {# Aggiungi il campo "id" come campo nascosto #}
+                                <td>{{ form.sito }}</td>
+                                <td>{{ form.sttr }}</td>
+                                <td>{{ form.banda }}</td>
+                                <td>{{ form.eltlt }}</td>
+                                <td>{{ form.serial }}</td>
+                                <td>{{ form.porta }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+ 
+                    <button type="submit">Update</button>
+
+            </div>
+            
+        </form>
+
+      </div>
+    </div> 
+  </div>       
+
+{% endblock %}

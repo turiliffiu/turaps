@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - TMA{% endblock head_title %}
+
+{% block content %}
+
+<div class="position-relative">
+
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+        <a href="{% url 'associatma' %}" type="button" class="btn btn-success">Associa</a>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Elimina tutto
+        </button>      
+    </div>
+    <div class="position-absolute top-0 end-0">
+        <a href="{% url 'crea_script' %}" type="button" class="btn btn-primary">Next</a>  
+    </div>
+</div><br/>
+
+  <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        
+            <form method="POST">
+                <!-- Security token by Django -->
+                {% csrf_token %}
+                Sei sicuro di voler eliminare tutto ?
+                </br>
+                <a href="/elabora/deleteall-tma/" class="btn btn-danger">Si</a>
+                <a href="/elabora/tma-view/" class="btn btn-success">No</a>
+            </form>
+
+        </div>
+    </div>
+    </div>
+
+</div>
+
+<form method="POST" action="{% url 'delete_tmas' %}">
+    {% csrf_token %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-122">
+        <h2>TMA</h2>
+
+            <div class="table-container">
+    
+                <table class="table table-striped">
+                                
+                    <thead >
+                        <tr>                                                       
+                        
+                            <th >CELLA</th> 
+                            <th >BB</th>
+                            <th >SEQ</th>
+                            <th >RADIO</th>                          
+                            <th >LAYER</th>
+                            <th >MIMO</th>
+                            <th >MIMOP</th>
+                            <th >PORT</th>
+                            <th >SERIAL1</th>
+                            <th >SERIAL2</th>
+                            <th >DLATT</th>
+                            <th >DLTRDL</th>
+                            <th >ULTRDL</th>
+                            <th >TMATYPE</th>
+                            <th >SUBUNIT</th>
+                            <th >TMPL</th>
+                            <th ><button type="submit">ELIMINA</button></th>                               
+
+                        </tr>
+                    </thead>
+                                            
+                    <tbody >
+                                                            
+                    {% for data in dataset %}
+                
+                    <tr>            
+                        <td class="field-cella"><a href="{% url 'update_tma' id=data.id %}">{{ data.cella }}</a></td>            
+                        <td >{{ data.bb }}</td>            
+                        <td >{{ data.seq }}</td>            
+                        <td >{{ data.radio }}</td>                                              
+                        <td >{{ data.layer }}</td>
+                        <td >{{ data.mimo }}</td>
+                        <td >{{ data.mimop }}</td>
+                        <td >{{ data.port }}</td>            
+                        <td >{{ data.serial1 }}</td>            
+                        <td >{{ data.serial2 }}</td>            
+                        <td >{{ data.dlAttenuation }}</td>
+                        <td >{{ data.dlTrafficDelay }}</td>
+                        <td >{{ data.ulTrafficDelay }}</td>
+                        <td >{{ data.tmatype }}</td> 
+                        <td >{{ data.subunit }}</td>
+                        <td >{{ data.codtmpl }}</td>             
+                        <td><input type="checkbox" name="object_id" value="{{ data.id }}"></td>            
+                    </tr>       	    
+                                        
+                    {% endfor %}                
+                                                
+                    </tbody>
+                            
+                </table>
+            
+            </div>
+
+
+        <br/>    
+
+    </div>
+</div>
+
+</form>
+
+{% endblock content %}
